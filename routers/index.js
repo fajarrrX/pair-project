@@ -7,8 +7,8 @@ router.get("/", Controller.home);
 router.get("/login", Controller.login);
 
 router.get("/guesthouses", Controller.guestHouse);
-router.get("/guesthouses/add", Controller.addForm);
-router.post("/guesthouses/add", Controller.addGuestHouse);
+router.get("/guesthousereservation/add", Controller.addForm);
+router.post("/guesthousereservation/add", Controller.postAdd);
 
 router.get("/guesthousereservation", Controller.showReservation);
 router.get("/guesthousereservation/:id", Controller.updateReservation);

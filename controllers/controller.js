@@ -16,8 +16,17 @@ class Controller {
         res.send(err.message);
       });
   }
-  static addForm(req, res) {}
-  static addGuestHouse(req, res) {}
+  static addForm(req, res) {
+    let id = req.params.id
+    GuestHouseReservation.findAll()
+      .then((data) => {
+        res.render("addForm", { data });
+      })
+      .catch((err) => {
+        res.send(err.message);
+      });
+  }
+  static postAdd(req, res) {}
   static showReservation(req, res) {}
   static updateReservation(req, res) {}
   static postUpdateReservation(req, res) {}
