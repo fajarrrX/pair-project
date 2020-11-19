@@ -12,7 +12,7 @@ const isLogin = function (req, res, next) {
 
 const DoubleLoginHandler = function (req, res, next) {
   if (req.session.userId) {
-    res.redirect("/login");
+    res.redirect("/");
   } else {
     next();
   }
@@ -28,7 +28,7 @@ router.use(isLogin);
 router.get("/guesthouses", Controller.guestHouse);
 router.get("/guesthousereservation", Controller.showReservation);
 router.get("/guesthousereservation/add", Controller.addForm);
-router.post("/guesthousereservation/add", Controller.postAdd);
+router.post("/guesthousereservation/add", Controller.addReservation);
 router.get("/guesthousereservation/:id", Controller.updateReservation);
 router.post("/guesthousereservation/:id", Controller.postUpdateReservation);
 router.get("/guesthousereservation/delete/:id", Controller.CancelReservation);

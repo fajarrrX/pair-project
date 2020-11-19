@@ -1,8 +1,10 @@
 const { GuestHouse, Guest, GuestHouseReservation } = require("../models");
 const { comparePassword } = require("../helpers/password");
+const moment = require("moment");
 
 class Controller {
   static home(req, res) {
+    console.log(req.session.userId);
     res.render("home");
   }
   static register(req, res) {
@@ -29,7 +31,7 @@ class Controller {
   }
   static loginPost(req, res) {
     const username = req.body.username;
-    const password = req.body.username;
+    const password = req.body.password;
 
     Guest.findOne({
       where: {
@@ -38,7 +40,8 @@ class Controller {
     })
       .then((user) => {
         if (user && comparePassword(password, user.password)) {
-          res.send(`welcome ${user.name}`);
+          req.session.userId = user.id;
+          res.redirect("/");
         } else {
           res.send(`invalid username or password`);
         }
@@ -57,20 +60,88 @@ class Controller {
       });
   }
   static addForm(req, res) {
-    let id = req.params.id;
-    GuestHouseReservation.findAll()
+    GuestHouse.findAll({
+      include: [
+        {
+          model: Guest,
+        },
+      ],
+    })
       .then((data) => {
-        res.render("addForm", { data });
+        res.render("bookform", { data });
+        console.log(data);
       })
       .catch((err) => {
         res.send(err.message);
       });
   }
-  static postAdd(req, res) {}
-  static showReservation(req, res) {}
-  static updateReservation(req, res) {}
-  static postUpdateReservation(req, res) {}
-  static CancelReservation(req, res) {}
+  static addReservation(req, res) {
+    const id = req.params.id;
+    let day = req.body.start_date;
+    const newData = {
+      GuestId: req.body.guest,
+      GuestHouseId: id,
+      start_date: day,
+      end_date: moment(day).add(7, "days"),
+    };
+    GuestHouseReservation.create(newData)
+      .then((data) => {
+        res.redirect("/guesthousereservation");
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+  static showReservation(req, res) {
+    GuestHouseReservation.findAll()
+      .then((data) => {
+        res.render("guesthouseres", { data });
+      })
+      .catch((err) => {
+        res.send(err.message);
+      });
+  }
+  static updateReservation(req, res) {
+    const id = req.params.id;
+
+    GuestHouseReservation.findByPk(id)
+      .then((data) => {
+        res.render("edit", { data });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+  static postUpdateReservation(req, res) {
+    const id = req.params.id;
+    const updatedData = {};
+    GuestHouseReservation.update(updatedData, {
+      where: {
+        id: id,
+      },
+    })
+      .then((data) => {
+        res.redirect("");
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+  static CancelReservation(req, res) {
+    const id = req.params.id;
+
+    GuestHouseReservation.destroy({
+      where: {
+        id: id,
+      },
+    })
+      .then((data) => {
+        res.redirect("");
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
 }
 
 module.exports = Controller;

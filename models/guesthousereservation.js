@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   GuestHouseReservation.init(
     {
-      guestId: DataTypes.INTEGER,
-      guestHouseId: DataTypes.INTEGER,
+      GuestId: DataTypes.INTEGER,
+      GuestHouseId: DataTypes.INTEGER,
       start_date: DataTypes.DATEONLY,
       end_date: DataTypes.DATEONLY,
       reservation_status: DataTypes.BOOLEAN,
