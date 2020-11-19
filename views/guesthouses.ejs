@@ -1,0 +1,28 @@
+<%- include('partials/head') %> 
+<body>
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Capacity</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i=0; i<data.length; i++) { %> 
+            <tr>
+                <td><%= data[i].name %></td>
+                <td><%= data[i].location %></td>
+                <td><%= data[i].capacity %></td>
+                <td><%= data[i].price %></td>
+                <td><%= data[i].description %></td>
+                <td><a href="/guesthouses/add">Booking</a></td>
+            </tr>
+        <% } %> 
+        </tbody>
+    </table>
+</body>
