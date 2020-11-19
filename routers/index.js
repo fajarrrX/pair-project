@@ -20,7 +20,7 @@ router.post("/login", Controller.loginPost)
 
 router.get("/guesthouses", Controller.guestHouse);
 router.get("/guesthouses/add", Controller.addForm);
-router.post("/guesthouses/add", Controller.addGuestHouse);
+router.post("/guesthouses/add", Controller.addReservation);
 
 router.get("/guesthousereservation", Controller.showReservation);
 router.get("/guesthousereservation/:id", Controller.updateReservation);
