@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation</title>
+</head>
+<body>
+    <h1>Reservation List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Guest ID</th>
+                <th>Guesthouse ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% objData.forEach(el => { %>
+                <tr>
+                    <td><%= el.guestId %> </td>
+                    <td><%= el.guestHouseId %> </td>
+                    <td><%= el.start_date %> </td>
+                    <td><%= el.end_date %> </td>
+                    <td><%= el.status %> </td>
+                    <td><a href="/guesthousereservation/delete/<%= el.id %>">Cancel</a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
