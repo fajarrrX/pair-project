@@ -1,11 +1,38 @@
 const { GuestHouse, Guest, GuestHouseReservation } = require("../models");
 
 class Controller {
-  static home(req, res) {
-    res.render("home");
+  static register(req, res){
+    res.render('register')
+  }
+  static registerPost(req, res){
+    const obj = {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password
+    }
+    Guest.create(obj)
+      .then(data =>{
+        res.redirect('/')
+      })
+      .catch(err => {
+        res.send(err)
+      })
   }
   static login(req, res) {
-    res.send("inilogin");
+    res.send("login");
+  }
+  static loginPost(req, res){
+    Guest.findOne({ where: { username: req.body.username}})
+      .then(data => {
+        req.session.id = data.id
+        req.session.username = data.username
+        res.redirect('/')
+      })
+      .catch(err => {
+        res.send(err)
+      })
   }
   static guestHouse(req, res) {
     GuestHouse.findAll()
