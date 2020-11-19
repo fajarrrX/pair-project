@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addConstraint("GuestHouseReservations", {
-      fields: ["guestHouseId"],
+      fields: ["GuestHouseId"],
       type: "foreign key",
       name: "adding-guestHouseId-fk-to-GuestHouseReservation",
       references: {
@@ -11,8 +11,8 @@ module.exports = {
         table: "GuestHouses",
         field: "id",
       },
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
   },
 

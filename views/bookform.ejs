@@ -6,10 +6,13 @@
     <title>Booking Reservation</title>
 </head>
 <body>
-    <h1>Guesthouse: "<%= data.name %>"</h1>
-    <form action="" method="post"></form>
-    <div>
-        <label for="guestId">Guest ID</label>
-    </div>
+    <form action="/guesthousereservation/add" method="post"></form>
+    <select name="GuestId"></select>
+    <option value="<%= %> "></option>
+
+    <label>start_date</label> <br>
+    <input type="date"> <br>
+    <label>end_date</label> <br>
+    <input type="date"> <br>
 </body>
 </html>
