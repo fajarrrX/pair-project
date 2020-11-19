@@ -43,12 +43,41 @@ class Controller {
         res.send(err.message);
       });
   }
-  static addForm(req, res) {}
-  static addGuestHouse(req, res) {}
-  static showReservation(req, res) {}
-  static updateReservation(req, res) {}
-  static postUpdateReservation(req, res) {}
-  static CancelReservation(req, res) {}
+  static addForm(req, res) {
+    const id = req.params.id
+    let guests;
+    Guest.findAll()
+      .then((data) => {
+        guests = data;
+        return GuestHouseReservation.findByPk(id, {
+          include: [Guest, GuestHouse]
+        })
+      })
+      .then((data) => {
+        res.render('addres', {Guest, data})
+      })
+      .catch((err) => {
+        res.send(err)
+      })
+  }
+  static addReservation(req, res) {
+    const id = req.params.id
+    const newData = {
+      
+    }
+  }
+  static showReservation(req, res) {
+  
+  }
+  static updateReservation(req, res) {
+
+  }
+  static postUpdateReservation(req, res) {
+
+  }
+  static CancelReservation(req, res) {
+
+  }
 }
 
 module.exports = Controller;
