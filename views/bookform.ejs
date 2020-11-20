@@ -6,13 +6,24 @@
     <title>Booking Reservation</title>
 </head>
 <body>
-    <form action="/guesthousereservation/add" method="post"></form>
-    <select name="GuestId"></select>
-    <option value="<%= %> "></option>
-
-    <label>start_date</label> <br>
-    <input type="date"> <br>
-    <label>end_date</label> <br>
-    <input type="date"> <br>
+    <form action="/guesthousereservation/add" method="post">
+        <select name="GuestHouseId">
+            <% for (let i=0; i<guesthouse.length; i++) { %> 
+            <option value="<%= guesthouse[i].id %> "><%= guesthouse[i].name %></option>
+            <% } %> 
+        </select><br>
+    
+        <select name="GuestId">
+            <% for (let i=0; i<data.length; i++) { %> 
+                <option value="<%= data[i].id %> "><%= data[i].firstname %></option>
+                <% } %> 
+        </select><br>
+    
+        <label>start_date</label> <br>
+        <input type="date" name="start_date"> <br>
+        <label>end_date</label> <br>
+        <input type="date" name="end_date"> <br>
+        <input type="submit">
+    </form>
 </body>
 </html>

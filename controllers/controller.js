@@ -59,30 +59,54 @@ class Controller {
         res.send(err.message);
       });
   }
-  static addForm(req, res) {
-    GuestHouse.findAll({
-      include: [
-        {
-          model: Guest,
-        },
-      ],
-    })
+  static showReservation(req, res) {
+    GuestHouseReservation.findAll()
       .then((data) => {
-        res.render("bookform", { data });
-        console.log(data);
+        // console.log(data);
+        res.render("guesthouseres", { data });
       })
       .catch((err) => {
         res.send(err.message);
       });
   }
+  static addForm(req, res) {
+    let guesthouse = null;
+
+    GuestHouse.findAll()
+      .then((data) => {
+        guesthouse = data;
+        return Guest.findAll();
+      })
+      .then((data) => {
+        // console.log(data);
+        // res.send({data, guesthouse});
+        res.render("bookform", { data, guesthouse });
+      })
+
+      .catch((err) => {
+        res.send(err.message);
+      });
+    // let id = req.params.id;
+
+    // GuestHouse.findByPk(id, {
+    //   include: [Guest],
+    // })
+    //   .then((data) => {
+    //     res.send(data);
+    //   })
+    //   .catch((err) => {
+    //     res.send(err.message);
+    //   });
+  }
   static addReservation(req, res) {
-    const id = req.params.id;
-    let day = req.body.start_date;
+    // const id = req.params.id;
+
     const newData = {
-      GuestId: req.body.guest,
-      GuestHouseId: id,
-      start_date: day,
-      end_date: moment(day).add(7, "days"),
+      GuestId: req.body.GuestId,
+      GuestHouseId: req.body.GuestHouseId,
+      start_date: req.body.start_date,
+      end_date: req.body.end_date,
+      reservation_status: true,
     };
     GuestHouseReservation.create(newData)
       .then((data) => {
@@ -92,39 +116,28 @@ class Controller {
         res.send(err);
       });
   }
-  static showReservation(req, res) {
-    GuestHouseReservation.findAll()
+  static updateReservation(req, res) {
+    let id = req.params.id;
+
+    GuestHouse.findByPk(id)
       .then((data) => {
-        res.render("guesthouseres", { data });
+        const newCapacity = data.capacity - 1;
+        return GuestHouse.update(
+          {
+            capacity: newCapacity,
+          },
+          {
+            where: {
+              id: id,
+            },
+          }
+        );
+      })
+      .then((_) => {
+        res.redirect("/guesthouses");
       })
       .catch((err) => {
         res.send(err.message);
-      });
-  }
-  static updateReservation(req, res) {
-    const id = req.params.id;
-
-    GuestHouseReservation.findByPk(id)
-      .then((data) => {
-        res.render("edit", { data });
-      })
-      .catch((err) => {
-        res.send(err);
-      });
-  }
-  static postUpdateReservation(req, res) {
-    const id = req.params.id;
-    const updatedData = {};
-    GuestHouseReservation.update(updatedData, {
-      where: {
-        id: id,
-      },
-    })
-      .then((data) => {
-        res.redirect("");
-      })
-      .catch((err) => {
-        res.send(err);
       });
   }
   static CancelReservation(req, res) {
@@ -135,11 +148,11 @@ class Controller {
         id: id,
       },
     })
-      .then((data) => {
-        res.redirect("");
+      .then((_) => {
+        res.redirect("/");
       })
       .catch((err) => {
-        res.send(err);
+        res.send(err.message);
       });
   }
 }

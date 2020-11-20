@@ -12,8 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Guest.belongsToMany(models.GuestHouse, {
-        through: models.GuestHouseReservation,
+        through: "GuestHouseReservation",
       });
+      // Guest.hasMany(models.Guest);
     }
   }
   Guest.init(
