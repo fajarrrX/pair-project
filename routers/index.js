@@ -29,8 +29,9 @@ router.get("/guesthouses", Controller.guestHouse);
 router.get("/guesthousereservation", Controller.showReservation);
 router.get("/guesthousereservation/add", Controller.addForm);
 router.post("/guesthousereservation/add", Controller.addReservation);
-router.get("/guesthousereservation/:id", Controller.updateReservation);
-router.post("/guesthousereservation/:id", Controller.postUpdateReservation);
-router.get("/guesthousereservation/delete/:id", Controller.CancelReservation);
+
+router.get("/guesthousereservation/:id/booking", Controller.updateReservation);
+
+router.get("/guesthousereservation/:id/delete", Controller.CancelReservation);
 
 module.exports = router;

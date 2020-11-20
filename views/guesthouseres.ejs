@@ -10,6 +10,7 @@
     <table border="1">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Guest ID</th>
                 <th>Guesthouse ID</th>
                 <th>Start Date</th>
@@ -19,9 +20,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>bisadong</td>
-            </tr>
+            <% for (let i=0; i<data.length; i++) { %> 
+                <tr>
+                    <td><%= data[i].id %> </td>
+                    <td><%= data[i].GuestId %></td>
+                    <td><%= data[i].GuestHouseId %></td>
+                    <td><%= data[i].start_date %></td>
+                    <td><%= data[i].end_date %></td>
+                    <td><%= data[i].reservation_status %></td>
+                    <td><a href="/guesthousereservation/<%= data[i].id %> ">Delete</a></td>
+                </tr>
+           <% } %> 
         </tbody>
     </table>
 </body>

@@ -6,8 +6,7 @@
             <tr>
                 <th>Name</th>
                 <th>Location</th>
-                <th>Capacity</th>
-                <th>Price</th>
+                <th>Available</th>
                 <th>Description</th>
                 <th>Action</th>
             </tr>
@@ -17,10 +16,9 @@
             <tr>
                 <td><%= data[i].name %></td>
                 <td><%= data[i].location %></td>
-                <td><%= data[i].capacity %></td>
-                <td><%= data[i].price %></td>
+                <td><%= data[i].caption() %></td>
                 <td><%= data[i].description %></td>
-                <td><a href="/guesthousereservation/<%= data[i].id %> ">Booking</a></td>
+                <td><a href="/guesthousereservation/<%= data[i].id %>/booking ">Booking</a></td>
             </tr>
         <% } %> 
         </tbody>

@@ -10,8 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       GuestHouse.belongsToMany(models.Guest, {
-        through: models.GuestHouseReservation,
+        through: "GuestHouseReservation",
       });
+      // GuestHouse.hasMany(models.Guest);
+    }
+    caption() {
+      let caption = `only ${this.capacity} left, price Rp.${this.price}/unit`;
+      return caption;
     }
   }
   GuestHouse.init(
